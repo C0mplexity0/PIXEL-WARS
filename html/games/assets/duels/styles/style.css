@@ -1,0 +1,52 @@
+#colourSelector {
+  width: 20px;
+  height: 20px;
+}
+
+body {
+  font-family: pixel;
+  font-smooth: never;
+  -webkit-font-smoothing : none;
+}
+
+@font-face {
+  font-family: pixel;
+  src: url("/assets/font.ttf");
+}
+
+.game {
+  image-rendering: pixelated;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black;
+}
+
+#colourSelector {
+  border-radius: 5px;
+}
+
+.inventory {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: calc((100% - 640px) / 2);
+}
+
+.tile {
+  width: 20px;
+  height: 20px;
+  padding: 7px;
+  text-align: center;
+  float: left;
+}
+
+.tile[data-selected="true"] {
+  padding: 5px;
+  border-width: 2px;
+  border-style: solid;
+}

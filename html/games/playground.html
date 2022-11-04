@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground | PIXEL WARS</title>
+  <link rel="stylesheet" href="assets/playground/styles/style.css">
+</head>
+<body onload="load();">
+  <script src= "/socket.io/socket.io.js"></script>
+  <script src="assets/playground/scripts/game.js"></script>
+  <script src="assets/playground/scripts/login.js"></script>
+  <div id="app">
+    <div class="usernameinput">
+      <input type="text" placeholder="Username" id="usernameinput" maxlength="20">
+      <button onclick="login(usernameinput.value);">Play</button>
+      <div id="usernameinputerror"></div>
+    </div>
+    <br>
+    <p>
+      Character Colour (Click to change):
+    </p>
+    <div id="colourSelector" onclick="changeColour();" style="background-color: red">
+    </div>
+    <br>
+    <div>
+      CONTROLS:<br>WASD/Arrow Keys: Move<br>Shift + WASD/Arrow Keys: Place/Break Tiles<br>O/P: Select Blocks
+    </div>
+  </div>
+  <script src="assets/playground/scripts/colourSelector.js"></script>
+</body>
+</html>

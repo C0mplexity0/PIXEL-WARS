@@ -1,0 +1,93 @@
+body {
+  font-smooth: never;
+  -webkit-font-smoothing : none;
+}
+
+#startscreen {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.startlogo {
+  opacity: 0;
+  image-rendering: pixelated;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 40vw;
+  height: 40vw;
+  animation-name: logoIn;
+  animation-duration: 7s;
+}
+
+@keyframes logoIn {
+  0% {opacity: 0;transform: scale(0.75)}
+  40% {opacity: 1;transform: scale(1)}
+  80% {opacity: 1}
+  100% {opacity: 0}
+}
+
+#logo {
+  background-image: url("/assets/pixel-wars-black.png");
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-size: 300px 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  height: 300px;
+}
+
+#play {
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-size: 300px 150px;
+  background-image: url("/assets/pixel-wars-play.png");
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  height: 150px;
+  transition: transform 0.2s ease-in-out;
+}
+
+#play:hover {
+  background-image: url("/assets/pixel-wars-play-hover.png");
+  transform: scale(1.05);
+}
+
+#gamemodeslogo {
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-size: 450px 150px;
+  background-image: url("/assets/pixel-wars-gamemodes.png");
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 450px;
+  height: 150px;
+}
+
+#playgroundlogo {
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-size: 512px 112px;
+  background-image: url("/games/assets/playground/logo.png");
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 512px;
+  height: 112px;
+  transition: transform 0.2s ease-in-out;
+}
+
+#playgroundlogo:hover {
+  transform: scale(1.05);
+}
