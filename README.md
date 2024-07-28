@@ -3,17 +3,9 @@
 Pixel Wars is a simple game on Replit involving pixels and wars.
 Wars wars pixels and wars.
 
-## Dependencies
-The dependencies for Pixel Wars are not included in this repository, please install the following:
-- http
-- express
-- socket.io
-- path
-- fs
-
-You can install each of these through npm:
+To use this repository, just clone it and then run:
 ```bash
-npm install <name>
+npm install
 ```
 
 ## Gamemodes
