@@ -1,3 +1,4 @@
+> ⚠️ This repository has poor code quality, as it was created when I was just beginning to learn web development and programming in general
 # PIXEL WARS
 Pixel Wars is a simple game on Replit involving pixels and wars.
 Wars wars pixels and wars.
