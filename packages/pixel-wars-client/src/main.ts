@@ -1,5 +1,8 @@
 import { createApp } from "vue";
-import "./index.css";
-import App from "./App.vue";
+import "./ui/index.css";
+import App from "./ui/App.vue";
+import { initGame } from "./game/main.ts";
+
+initGame();
 
 createApp(App).mount("#app");
