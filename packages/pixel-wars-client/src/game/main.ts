@@ -22,3 +22,24 @@ export function stopSingleplayerGame() {
     game = undefined;
   }
 }
+
+export async function validateMultiplayerServer(serverIp: string) {
+  let url = `https://${serverIp}/pixel-wars/info`;
+
+  if (new URL(url).hostname === "localhost") {
+    url = `http://${serverIp}/pixel-wars/info`;
+  }
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    return false;
+  }
+
+  const data = await response.json();
+
+  if (!data || typeof data !== "object") {
+    return false;
+  }
+
+  return data.validPixelWarsServer === true;
+}

@@ -1,10 +1,24 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import Button from "../../components/Button.vue";
 import Input from "../../components/Input.vue";
+import { validateMultiplayerServer } from "../../../game/main.ts";
 
 defineProps<{
   onBack?: () => void;
 }>();
+
+const address = ref<string>();
+
+async function attemptConnection() {
+  console.log(address.value);
+  if (!address.value) {
+    return;
+  }
+
+  const result = await validateMultiplayerServer(address.value);
+  console.log(result);
+}
 </script>
 
 <template>
@@ -19,8 +33,11 @@ defineProps<{
         id="address"
         type="text"
         placeholder="pw.example.com"
+        v-model="address"
       />
-      <Button class="mt-2"><span class="-mb-1">Connect</span></Button>
+      <Button class="mt-2" @click="attemptConnection"
+        ><span class="-mb-1">Connect</span></Button
+      >
     </main>
   </div>
 </template>
