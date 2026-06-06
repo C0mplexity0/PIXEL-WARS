@@ -5,10 +5,10 @@
   "description": "A simple open-source pixel-based browser game with multiplayer and modding support.",
   "packageManager": "pnpm@11.5.2",
   "scripts": {
-    "dev:client": "pnpm --filter pixel-wars-client dev",
+    "dev:client": "pnpm --filter @pixel-wars/client dev",
     "build": "turbo check-types build",
-    "build:client": "pnpm --filter pixel-wars-client build",
-    "preview:client": "pnpm --filter pixel-wars-client preview"
+    "build:client": "pnpm --filter @pixel-wars/client build",
+    "preview:client": "pnpm --filter @pixel-wars/client preview"
   },
   "homepage": "https://github.com/C0mplexity0/PIXEL-WARS#readme",
   "bugs": {
