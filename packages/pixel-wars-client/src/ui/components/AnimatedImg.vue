@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 
-const props = defineProps<{
-  spritesheetImgSrc: string;
-  timings: number[];
-  alt: string;
-  playing?: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    spritesheetImgSrc: string;
+    timings: number[];
+    alt: string;
+    playing?: boolean;
+  }>(),
+  {
+    playing: true,
+  },
+);
 
 const frame = ref(0);
 const currentTimeout = ref<number | null>(null);

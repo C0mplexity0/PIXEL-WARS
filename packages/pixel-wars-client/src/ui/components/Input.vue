@@ -12,4 +12,3 @@ const model = defineModel<string>();
     "
   />
 </template>
-;

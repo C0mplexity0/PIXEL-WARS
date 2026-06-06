@@ -27,6 +27,7 @@ function leaveGame() {
   <MultiplayerConnectMenu
     v-else-if="menu === 'multiplayer-connect'"
     @back="menu = 'home'"
+    @play="menu = 'game'"
   />
   <GameMenu v-else-if="menu === 'game'" @exit="leaveGame" />
 </template>

@@ -12,7 +12,13 @@ let io: Server;
 export function startWebServer() {
   app = new Hono();
   server = serve(app);
-  io = new Server(server as HttpServer);
+  io = new Server(server as HttpServer, {
+    path: "/pixel-wars/websocket",
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
 
   app.use(
     "/pixel-wars/*",
