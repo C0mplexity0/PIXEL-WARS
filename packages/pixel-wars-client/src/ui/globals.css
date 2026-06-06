@@ -5,4 +5,10 @@ body,
 #app {
   width: 100svw;
   height: 100svh;
+  image-rendering: pixelated;
+}
+
+#game {
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }
