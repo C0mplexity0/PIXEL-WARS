@@ -1,7 +1,7 @@
 import { createApp } from "vue";
-import "./ui/index.css";
+import "./ui/globals.css";
 import App from "./ui/App.vue";
-import { initGame } from "./game/main.ts";
+import { initGame } from "./game/main";
 
 initGame();
 

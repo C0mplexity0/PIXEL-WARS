@@ -3,8 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "description": "A simple open-source pixel-based browser game with multiplayer and modding support.",
+  "packageManager": "pnpm@11.5.2",
   "scripts": {
     "dev:client": "pnpm --filter pixel-wars-client dev",
+    "build": "turbo check-types build",
     "build:client": "pnpm --filter pixel-wars-client build",
     "preview:client": "pnpm --filter pixel-wars-client preview"
   },
@@ -16,5 +18,8 @@
     "type": "git",
     "url": "git+https://github.com/C0mplexity0/PIXEL-WARS.git"
   },
-  "author": "C0mplexity0"
+  "author": "C0mplexity0",
+  "devDependencies": {
+    "turbo": "^2.9.16"
+  }
 }
