@@ -1,11 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: oklch(0.26 0 143);
+  --color-button-hovered: oklch(0.92 0.0927 96.47);
+}
+
+@font-face {
+  font-family: PIXELWARS;
+  src:
+    local("PIXEL-WARS"),
+    url("../assets/font/PIXEL-WARS.ttf") format("truetype");
+}
+
 html,
 body,
 #app {
   width: 100svw;
   height: 100svh;
+
   image-rendering: pixelated;
+
+  font-family: PIXELWARS, sans-serif;
+  font-smooth: never;
+  font-size: 16px;
+  -webkit-font-smoothing: none;
 }
 
 #game {

@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { twMerge } from "tailwind-merge";
 import { ref, watch } from "vue";
 
 const props = defineProps<{
   spritesheetImgSrc: string;
   timings: number[];
   alt: string;
-  className?: string;
   playing?: boolean;
 }>();
 
@@ -54,12 +52,12 @@ scheduleNextFrame();
 </script>
 
 <template>
-  <div :className="twMerge('relative overflow-hidden', className)">
+  <div class="relative overflow-hidden">
     <img
       :alt="alt"
       :src="spritesheetImgSrc"
       :style="{ left: `${frame * -100}%` }"
-      className="h-full w-fit max-w-max absolute"
+      class="h-full w-fit max-w-max absolute"
     />
   </div>
 </template>
