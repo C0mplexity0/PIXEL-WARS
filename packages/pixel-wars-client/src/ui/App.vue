@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import HomeMenu from "./menus/home/HomeMenu.vue";
-import { startSingleplayerGame } from "../game/main.ts";
+import { startSingleplayerGame, stopSingleplayerGame } from "../game/main.ts";
 import MultiplayerConnectMenu from "./menus/multiplayer-connect/MultiplayerConnectMenu.vue";
+import GameMenu from "./menus/game/GameMenu.vue";
 
 const menu = ref<"home" | "game" | "multiplayer-connect">("home");
 
 function launchSingleplayerGame() {
   menu.value = "game";
   startSingleplayerGame();
+}
+
+function leaveGame() {
+  menu.value = "home";
+  stopSingleplayerGame();
 }
 </script>
 
@@ -22,4 +28,5 @@ function launchSingleplayerGame() {
     v-else-if="menu === 'multiplayer-connect'"
     @back="menu = 'home'"
   />
+  <GameMenu v-else-if="menu === 'game'" @exit="leaveGame" />
 </template>

@@ -11,7 +11,7 @@ defineProps<{
   <Button class="m-4 absolute" @click="onBack"
     ><span class="-mb-1">Back</span></Button
   >
-  <div class="flex justify-center items-center size-full">
+  <div class="flex justify-center items-center size-full bg-white">
     <main class="flex flex-col text-center w-75">
       <label htmlFor="address">Enter Server IP</label>
       <Input
