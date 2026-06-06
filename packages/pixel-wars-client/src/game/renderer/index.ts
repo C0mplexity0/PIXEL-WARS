@@ -43,7 +43,7 @@ export default class Renderer {
     return [canvasX, canvasY];
   }
 
-  private renderPixels(pixels: number[][], pixelTypes: PixelType[]) {
+  private renderPixels(pixels: (number | null)[][], pixelTypes: PixelType[]) {
     const rows = pixels.length;
     const columns = pixels[0].length;
 

@@ -36,10 +36,10 @@ export class WorldChunks {
 
   getChunk(x: number, y: number): ChunkData {
     const chunkKey = `${x},${y}`;
-    return this.chunks[chunkKey];
+    return this.chunks[chunkKey] ?? null;
   }
 
-  getPixel(x: number, y: number): number {
+  getPixel(x: number, y: number): number | null {
     const chunkX = Math.floor(x / 16);
     const chunkY = Math.floor(y / 16);
     const chunk = this.getChunk(chunkX, chunkY);
@@ -51,7 +51,7 @@ export class WorldChunks {
     const pixelX = x % 16;
     const pixelY = y % 16;
 
-    return chunk[pixelY][pixelX];
+    return chunk[pixelY][pixelX] ?? null;
   }
 }
 
@@ -88,17 +88,18 @@ export class World {
   }
 
   getChunk(x: number, y: number): ChunkData {
-    const chunkKey = `${x},${y}`;
+    let chunk = this.chunks.getChunk(x, y);
 
-    if (!this.chunks[chunkKey]) {
+    if (!chunk) {
       if (!this.generationEnabled) {
         return null;
       }
 
-      this.chunks[chunkKey] = this.generateChunk(x, y);
+      this.generateChunk(x, y);
+      chunk = this.chunks.getChunk(x, y);
     }
 
-    return this.chunks[chunkKey];
+    return chunk ?? null;
   }
 
   generateChunk(x: number, y: number): ChunkData {

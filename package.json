@@ -6,9 +6,12 @@
   "packageManager": "pnpm@11.5.2",
   "scripts": {
     "dev:client": "pnpm --filter @pixel-wars/client dev",
+    "dev:server": "pnpm --filter @pixel-wars/server dev",
     "build": "turbo check-types build",
     "build:client": "pnpm --filter @pixel-wars/client build",
-    "preview:client": "pnpm --filter @pixel-wars/client preview"
+    "build:server": "pnpm --filter @pixel-wars/server build",
+    "preview:client": "pnpm --filter @pixel-wars/client preview",
+    "start:server": "pnpm --filter @pixel-wars/server start"
   },
   "homepage": "https://github.com/C0mplexity0/PIXEL-WARS#readme",
   "bugs": {

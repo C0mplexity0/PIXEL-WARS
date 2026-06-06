@@ -25,8 +25,8 @@ export class LocalWorldData {
     centreY: number,
     visibleWidth: number,
     visibleHeight: number,
-  ): number[][] {
-    const pixels: number[][] = [];
+  ): (number | null)[][] {
+    const pixels: (number | null)[][] = [];
 
     const startX = Math.floor(centreX - visibleWidth / 2);
     const endX = Math.ceil(centreX + visibleWidth / 2);
@@ -34,10 +34,11 @@ export class LocalWorldData {
     const endY = Math.ceil(centreY + visibleHeight / 2);
 
     for (let y = startY; y < endY; y++) {
-      pixels[y - startY] = [];
+      const row: (number | null)[] = [];
       for (let x = startX; x < endX; x++) {
-        pixels[y - startY][x - startX] = this.chunks.getPixel(x, y);
+        row[x - startX] = this.chunks.getPixel(x, y);
       }
+      pixels[y - startY] = row;
     }
 
     return pixels;
