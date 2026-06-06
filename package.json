@@ -5,6 +5,7 @@
   "description": "A simple open-source pixel-based browser game with multiplayer and modding support.",
   "packageManager": "pnpm@11.5.2",
   "scripts": {
+    "dev": "turbo dev --filter @pixel-wars/client --filter @pixel-wars/server",
     "dev:client": "pnpm --filter @pixel-wars/client dev",
     "dev:server": "pnpm --filter @pixel-wars/server dev",
     "build": "turbo check-types build",

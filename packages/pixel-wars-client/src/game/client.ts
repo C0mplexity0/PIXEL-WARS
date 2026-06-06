@@ -61,6 +61,10 @@ export default class PixelWarsClient {
     this.setRunning(false);
   }
 
+  stop() {
+    this.setRunning(false);
+  }
+
   private requestNewTick() {
     requestAnimationFrame(this.tick.bind(this));
   }

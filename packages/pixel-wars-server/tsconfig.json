@@ -7,6 +7,11 @@
     "esModuleInterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    "paths": {
+      "@pixel-wars/core": ["../pixel-wars-core/src/index.ts"],
+      "@pixel-wars/core/*": ["../pixel-wars-core/src/*"]
+    }
   }
 }
