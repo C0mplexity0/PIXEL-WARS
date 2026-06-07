@@ -1,5 +1,13 @@
 {
   "name": "@pixel-wars/core",
+  "homepage": "https://github.com/C0mplexity0/PIXEL-WARS#readme",
+  "bugs": {
+    "url": "https://github.com/C0mplexity0/PIXEL-WARS/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C0mplexity0/PIXEL-WARS.git"
+  },
   "version": "0.0.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
