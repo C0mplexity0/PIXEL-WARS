@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+pixel-wars-core-*.tgz
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
