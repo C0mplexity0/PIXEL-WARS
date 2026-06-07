@@ -8,6 +8,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "declaration": true,
+    "declarationDir": "./dist",
 
     "paths": {
       "@pixel-wars/core": ["../pixel-wars-core/src/index.ts"],

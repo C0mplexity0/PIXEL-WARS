@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import path from "path";
+import dts from "unplugin-dts/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,4 +11,5 @@ export default defineConfig({
       fileName: ".",
     },
   },
+  plugins: [dts()],
 });

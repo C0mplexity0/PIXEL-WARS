@@ -7,7 +7,7 @@ export function getClient() {
   return game;
 }
 
-export function startSingleplayerGame() {
+function startGame() {
   if (game) {
     throw new Error("Client is already running");
   }
@@ -19,6 +19,10 @@ export function startSingleplayerGame() {
 
   game = new PixelWarsClient(canvas);
   game.start();
+}
+
+export function startSingleplayerGame() {
+  startGame();
 }
 
 export function stopSingleplayerGame() {
