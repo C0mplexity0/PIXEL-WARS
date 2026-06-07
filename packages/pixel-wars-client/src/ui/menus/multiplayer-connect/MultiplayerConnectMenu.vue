@@ -18,7 +18,7 @@ const props = defineProps<{
 
 const menu = ref<"input" | "loading" | "error">("input");
 
-const address = ref<string>();
+const address = ref<string>("");
 const loadingMessage = ref<string>("Connecting...");
 const errorMessage = ref<string>("Couldn't connect to server.");
 
@@ -35,6 +35,7 @@ async function attemptConnection() {
   if (!result) {
     menu.value = "error";
     errorMessage.value = "Server couldn't be found.";
+    return;
   }
 
   loadingMessage.value = "Connecting to server...";
