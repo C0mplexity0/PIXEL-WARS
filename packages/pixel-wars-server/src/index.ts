@@ -2,6 +2,8 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { Server } from "socket.io";
 import { Server as HttpServer } from "node:http";
+import { cors } from "hono/cors";
+import packageJson from "../package.json" with { type: "json" };
 
 export class PixelWarsServer {
   private port: number;
@@ -31,6 +33,28 @@ export class PixelWarsServer {
         origin: "*",
         methods: ["GET", "POST"],
       },
+    });
+
+    this.app.use(
+      "/pixel-wars/*",
+      cors({
+        origin: "*",
+        allowMethods: ["POST", "GET", "OPTIONS"],
+        exposeHeaders: ["Content-Length"],
+        maxAge: 600,
+        credentials: false,
+      }),
+    );
+
+    this.app.get("/pixel-wars/info", (c) => {
+      return c.json({
+        validPixelWarsServer: true,
+        version: packageJson.version,
+      });
+    });
+
+    this.io.on("connection", (socket) => {
+      console.log("A client connected:", socket.id);
     });
   }
 }
