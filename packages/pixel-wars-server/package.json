@@ -1,12 +1,11 @@
 {
   "name": "@pixel-wars/server",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --watch src --ext ts,json --exec \"node --import ./ts-node-register.mjs src/index.ts\" src/index.ts",
+    "dev": "nodemon --watch src --ext ts,json --exec \"node --import ./ts-node-register.mjs src/start.ts\" src/start.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/start.js"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.4",
