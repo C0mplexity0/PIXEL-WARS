@@ -5,11 +5,8 @@ import singleplayerButtonDefault from "../../../assets/img/singleplayer-button-d
 import singleplayerButtonSpritesheet from "../../../assets/img/singleplayer-button-spritesheet.png";
 import multiplayerButtonDefault from "../../../assets/img/multiplayer-button-default.png";
 import multiplayerButtonSpritesheet from "../../../assets/img/multiplayer-button-spritesheet.png";
-
-defineProps<{
-  onSingleplayerMenuOpen?: () => void;
-  onMultiplayerMenuOpen?: () => void;
-}>();
+import { startSingleplayerGame } from "../../../game/main.ts";
+import { changeMenuDetails } from "../../../util/menus.ts";
 </script>
 
 <template>
@@ -27,7 +24,7 @@ defineProps<{
         class="w-126 h-18"
         alt="Singleplayer Button Image"
         aria-label="Singleplayer Button"
-        @click="onSingleplayerMenuOpen"
+        @click="startSingleplayerGame"
       />
 
       <AnimatedImgButton
@@ -42,7 +39,12 @@ defineProps<{
         class="w-126 h-18"
         alt="Multiplayer Button Image"
         aria-label="Multiplayer Button"
-        @click="onMultiplayerMenuOpen"
+        @click="
+          () =>
+            changeMenuDetails({
+              menu: 'multiplayer-connect',
+            })
+        "
       />
     </div>
   </main>

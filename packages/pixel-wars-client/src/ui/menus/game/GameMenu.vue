@@ -4,10 +4,7 @@ import DropdownMenuContent from "../../components/dropdown-menu/DropdownMenuCont
 import DropdownMenuPositioner from "../../components/dropdown-menu/DropdownMenuPositioner.vue";
 import DropdownMenuTrigger from "../../components/dropdown-menu/DropdownMenuTrigger.vue";
 import DropdownMenuItem from "../../components/dropdown-menu/DropdownMenuItem.vue";
-
-defineProps<{
-  onExit?: () => void;
-}>();
+import { stopGame } from "../../../game/main.ts";
 </script>
 
 <template>
@@ -16,7 +13,7 @@ defineProps<{
       <DropdownMenuTrigger> Menu </DropdownMenuTrigger>
       <DropdownMenuPositioner>
         <DropdownMenuContent>
-          <DropdownMenuItem value="main-menu" @click="onExit">
+          <DropdownMenuItem value="main-menu" @click="stopGame">
             Main Menu
           </DropdownMenuItem>
         </DropdownMenuContent>

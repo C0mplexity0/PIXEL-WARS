@@ -14,7 +14,9 @@
       "@pixel-wars/core": ["../pixel-wars-core/src/index.ts"],
       "@pixel-wars/core/*": ["../pixel-wars-core/src/*"],
       "@pixel-wars/protocol": ["../pixel-wars-protocol/src/index.ts"],
-      "@pixel-wars/protocol/*": ["../pixel-wars-protocol/src/*"]
+      "@pixel-wars/protocol/*": ["../pixel-wars-protocol/src/*"],
+      "@pixel-wars/utils": ["../pixel-wars-utils/src/index.ts"],
+      "@pixel-wars/utils/*": ["../pixel-wars-utils/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]

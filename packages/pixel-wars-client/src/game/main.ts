@@ -5,11 +5,23 @@ import {
   ClientSingleplayerProtocolHandler,
   type ProtocolHandler,
 } from "@pixel-wars/protocol";
+import { changeMenuDetails } from "../util/menus";
 
 let game: PixelWarsClient | undefined;
 
 export function getClient() {
   return game;
+}
+
+export function stopGame() {
+  if (game) {
+    game.stop();
+    game = undefined;
+
+    changeMenuDetails({
+      menu: "home",
+    });
+  }
 }
 
 function startGame(protocol: ProtocolHandler) {
@@ -26,6 +38,9 @@ function startGame(protocol: ProtocolHandler) {
 
   game = new PixelWarsClient(canvas);
   game.start();
+  changeMenuDetails({
+    menu: "game",
+  });
 }
 
 export function startSingleplayerGame() {
@@ -33,19 +48,72 @@ export function startSingleplayerGame() {
   startGame(protocol);
 }
 
-export function stopSingleplayerGame() {
-  if (game) {
-    game.stop();
-    game = undefined;
+export async function attemptMultiplayerConnection(ip: string) {
+  if (!ip) {
+    return;
+  }
+
+  changeMenuDetails({
+    menu: "loading",
+    loadingMessage: "Pinging server...",
+  });
+
+  const result = await validateMultiplayerServer(ip);
+
+  if (!result) {
+    changeMenuDetails({
+      menu: "multiplayer-error",
+      errorMessage: "Server could not be found.",
+    });
+    return;
+  }
+
+  changeMenuDetails({
+    menu: "loading",
+    loadingMessage: "Connecting to server...",
+  });
+
+  let socket: Socket;
+
+  try {
+    socket = (await connectToMultiplayerServer(ip)) as Socket;
+  } catch (e) {
+    changeMenuDetails({
+      menu: "multiplayer-error",
+      errorMessage: "Couldn't connect to server.",
+    });
+    return;
+  }
+
+  startMultiplayerGame(socket);
+  changeMenuDetails({
+    menu: "game",
+  });
+}
+
+function getServerUrl(ip: string, path: string = "/") {
+  try {
+    if (!path.startsWith("/")) {
+      path = `/${path}`;
+    }
+
+    let url = `https://${ip}${path}`;
+
+    if (new URL(url).hostname === "localhost") {
+      url = `http://${ip}${path}`;
+    }
+    return url;
+  } catch (_e) {
+    return null;
   }
 }
 
 export async function validateMultiplayerServer(serverIp: string) {
   try {
-    let url = `https://${serverIp}/pixel-wars/info`;
+    const url = getServerUrl(serverIp, "/pixel-wars/info");
 
-    if (new URL(url).hostname === "localhost") {
-      url = `http://${serverIp}/pixel-wars/info`;
+    if (!url) {
+      return false;
     }
 
     const response = await fetch(url);
@@ -68,10 +136,11 @@ export async function validateMultiplayerServer(serverIp: string) {
 
 export async function connectToMultiplayerServer(serverIp: string) {
   return new Promise<Socket>((resolve, reject) => {
-    let url = `https://${serverIp}`;
+    const url = getServerUrl(serverIp);
 
-    if (new URL(url).hostname === "localhost") {
-      url = `http://${serverIp}`;
+    if (!url) {
+      reject();
+      return;
     }
 
     const socket = io(url, {

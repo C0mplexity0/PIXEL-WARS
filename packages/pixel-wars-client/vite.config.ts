@@ -13,6 +13,7 @@ export default defineConfig({
         __dirname,
         "../pixel-wars-protocol/src",
       ),
+      "@pixel-wars/utils": path.resolve(__dirname, "../pixel-wars-utils/src"),
     },
   },
 });
