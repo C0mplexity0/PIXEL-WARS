@@ -9,6 +9,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@pixel-wars/core": path.resolve(__dirname, "../pixel-wars-core/src"), // Using this method instead of a workspace dependency ensures that changes to the core package apply to the client without rebuilding
+      "@pixel-wars/protocol": path.resolve(
+        __dirname,
+        "../pixel-wars-protocol/src",
+      ),
     },
   },
 });

@@ -1,5 +1,10 @@
 import { io, Socket } from "socket.io-client";
 import PixelWarsClient from "./client";
+import {
+  ClientMultiplayerProtocolHandler,
+  ClientSingleplayerProtocolHandler,
+  type ProtocolHandler,
+} from "@pixel-wars/protocol";
 
 let game: PixelWarsClient | undefined;
 
@@ -7,7 +12,9 @@ export function getClient() {
   return game;
 }
 
-function startGame() {
+function startGame(protocol: ProtocolHandler) {
+  console.log(protocol);
+
   if (game) {
     throw new Error("Client is already running");
   }
@@ -22,7 +29,8 @@ function startGame() {
 }
 
 export function startSingleplayerGame() {
-  startGame();
+  const protocol = new ClientSingleplayerProtocolHandler();
+  startGame(protocol);
 }
 
 export function stopSingleplayerGame() {
@@ -85,15 +93,7 @@ export async function connectToMultiplayerServer(serverIp: string) {
 }
 
 export async function startMultiplayerGame(socket: Socket) {
-  if (game) {
-    throw new Error("Client is already running");
-  }
+  const protocol = new ClientMultiplayerProtocolHandler(socket);
 
-  const canvas = document.getElementById("game") as HTMLCanvasElement;
-  if (!canvas) {
-    throw new Error("Canvas element not found");
-  }
-
-  game = new PixelWarsClient(canvas);
-  game.start();
+  startGame(protocol);
 }

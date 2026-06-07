@@ -8,7 +8,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(import.meta.dirname, "src/index.ts"),
       name: "PixelWarsProtocol",
-      fileName: ".",
+      fileName: "index",
     },
   },
   plugins: [dts()],
