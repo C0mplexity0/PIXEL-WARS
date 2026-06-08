@@ -4,6 +4,8 @@ import Button from "../../components/Button.vue";
 import Input from "../../components/Input.vue";
 import { attemptMultiplayerConnection } from "../../../game/main.ts";
 import { changeMenuDetails } from "../../../util/menus.ts";
+import Text from "../../components/Text.vue";
+import Icon from "../../components/Icon.vue";
 
 const ip = ref<string>("");
 </script>
@@ -14,12 +16,12 @@ const ip = ref<string>("");
       class="m-4 absolute"
       @click="() => changeMenuDetails({ menu: 'home' })"
     >
-      <span class="-mb-1">Back</span>
+      <Icon icon="arrow-left" alt="Back" /> <Text>Back</Text>
     </Button>
 
     <div class="flex justify-center items-center size-full bg-white">
       <main class="flex flex-col text-center w-75">
-        <label htmlFor="ip">Enter Server IP</label>
+        <label htmlFor="ip"><Text>Enter Server IP</Text></label>
         <Input
           name="ip"
           id="ip"
@@ -28,7 +30,7 @@ const ip = ref<string>("");
           v-model="ip"
         />
         <Button class="mt-2" @click="() => attemptMultiplayerConnection(ip)">
-          <span class="-mb-1">Connect</span>
+          <Text>Connect</Text>
         </Button>
       </main>
     </div>

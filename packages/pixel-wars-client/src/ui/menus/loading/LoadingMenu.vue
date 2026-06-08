@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AnimatedImg from "../../components/AnimatedImg.vue";
 import loadingSpinner from "../../../assets/img/loading-spinner.png";
+import Text from "../../components/Text.vue";
 
 defineProps<{
   message: string;
@@ -17,7 +18,7 @@ defineProps<{
           class="w-12 h-12"
           alt="Loading spinner"
         />
-        <span>{{ message }}</span>
+        <Text>{{ message }}</Text>
       </div>
     </main>
   </div>
