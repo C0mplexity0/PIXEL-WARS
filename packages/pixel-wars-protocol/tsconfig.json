@@ -17,7 +17,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "@pixel-wars/client": ["../pixel-wars-client/src/index.ts"],
+      "@pixel-wars/client/*": ["../pixel-wars-client/src/*"],
+      "@pixel-wars/core": ["../pixel-wars-core/src/index.ts"],
+      "@pixel-wars/core/*": ["../pixel-wars-core/src/*"],
+      "@pixel-wars/utils": ["../pixel-wars-utils/src/index.ts"],
+      "@pixel-wars/utils/*": ["../pixel-wars-utils/src/*"]
+    }
   },
   "include": ["src"]
 }

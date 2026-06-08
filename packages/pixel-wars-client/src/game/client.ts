@@ -1,12 +1,23 @@
+import type { ClientToCoreProtocolHandler } from "@pixel-wars/protocol";
 import Renderer from "./renderer";
 import { LocalWorldData } from "./world";
+import type { Coordinates } from "@pixel-wars/core";
 
 export default class PixelWarsClient {
+  private protocolHandler: ClientToCoreProtocolHandler;
   private renderer: Renderer;
 
-  private running = false;
+  private running = true;
 
-  constructor(canvas: HTMLCanvasElement) {
+  private worldData: LocalWorldData;
+  private cameraLocation: Coordinates = [0, 0];
+
+  constructor(
+    canvas: HTMLCanvasElement,
+    protocolHandler: ClientToCoreProtocolHandler,
+  ) {
+    this.protocolHandler = protocolHandler;
+    this.worldData = new LocalWorldData(this.protocolHandler, []);
     this.renderer = new Renderer(this, canvas);
 
     console.log("PIXEL WARS client initialised");
@@ -15,46 +26,11 @@ export default class PixelWarsClient {
   }
 
   getLocalWorldData(): LocalWorldData {
-    // TODO: This is just temporary until the client can connect to the core and fetch world data from there
-    const world = new LocalWorldData([
-      {
-        name: "Air",
-        collision: false,
-        texture: {
-          type: "colour",
-          colour: "#FF0000",
-        },
-      },
-    ]);
-
-    world.setChunk(0, 0, [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ]);
-
-    return world;
+    return this.worldData;
   }
 
   setRunning(running: boolean) {
     this.running = running;
-  }
-
-  start() {
-    this.setRunning(true);
   }
 
   pause() {

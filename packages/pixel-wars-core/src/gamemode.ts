@@ -27,4 +27,9 @@ export class Gamemode {
   getDefaultWorld(): World | undefined {
     return this.getWorld(this.defaultWorldName);
   }
+
+  getPlayerWorld(/*player: Player*/): World {
+    // TODO: Implement player-specific world selection logic (e.g., based on player state, preferences, etc.)
+    return this.getDefaultWorld()!;
+  }
 }

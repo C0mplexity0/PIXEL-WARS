@@ -1,12 +1,6 @@
-import { type ChunkData, type DefinedChunkData, type World } from ".";
+import { type ChunkData, type DefinedChunkData } from ".";
 
 export class ChunkGenerator {
-  protected world: World;
-
-  constructor(world: World) {
-    this.world = world;
-  }
-
   generateChunk(_x: number, _y: number): ChunkData {
     return null;
   }
@@ -16,9 +10,9 @@ export class DefaultGenerator extends ChunkGenerator {
   generateChunk(): ChunkData {
     const pixels: DefinedChunkData = [];
 
-    for (let i = 0; i < this.world.getChunkSize(); i++) {
+    for (let i = 0; i < 16; i++) {
       pixels[i] = [];
-      for (let j = 0; j < this.world.getChunkSize(); j++) {
+      for (let j = 0; j < 16; j++) {
         pixels[i][j] = 0;
       }
     }

@@ -12,4 +12,11 @@ export default defineConfig({
     },
   },
   plugins: [dts()],
+  resolve: {
+    alias: {
+      "@pixel-wars/client": path.resolve(__dirname, "../pixel-wars-client/src"), // Using this method instead of a workspace dependency ensures that changes to the core package apply to the client without rebuilding
+      "@pixel-wars/core": path.resolve(__dirname, "../pixel-wars-core/src"),
+      "@pixel-wars/utils": path.resolve(__dirname, "../pixel-wars-core/src"),
+    },
+  },
 });

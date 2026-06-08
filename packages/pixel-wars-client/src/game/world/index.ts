@@ -1,11 +1,44 @@
-import { WorldChunks, type ChunkData, type PixelType } from "@pixel-wars/core";
+import {
+  WorldChunks,
+  type ChunkData,
+  type Coordinates,
+  type PixelType,
+} from "@pixel-wars/core";
+import type { ClientToCoreProtocolHandler } from "@pixel-wars/protocol";
 
 export class LocalWorldData {
+  private protocolHandler: ClientToCoreProtocolHandler;
+
   private pixelTypes: PixelType[];
+
   private chunks = new WorldChunks();
 
-  constructor(pixelTypes: PixelType[]) {
-    this.pixelTypes = pixelTypes;
+  private requestedChunks: Coordinates[] = [];
+
+  constructor(protocolHandler: ClientToCoreProtocolHandler) {
+    this.protocolHandler = protocolHandler;
+    protocolHandler.onMessageReceived("world:chunkData", (data) => {
+      const { coordinates, chunk } = data;
+      this.setChunk(coordinates[0], coordinates[1], chunk);
+    });
+
+    protocolHandler.onMessageReceived("world:pixelTypes", (data) => {
+      this.pixelTypes = data;
+    });
+
+    this.pixelTypes = [];
+
+    this.protocolHandler.sendMessage("world:requestPixelTypes", null);
+  }
+
+  private requestChunk(x: number, y: number) {
+    if (this.requestedChunks.some(([cx, cy]) => cx === x && cy === y)) {
+      return;
+    }
+
+    this.requestedChunks.push([x, y]);
+
+    this.protocolHandler.sendMessage("world:requestChunk", [x, y]);
   }
 
   getPixelTypes(): PixelType[] {
@@ -13,11 +46,25 @@ export class LocalWorldData {
   }
 
   getChunk(x: number, y: number): ChunkData {
-    return this.chunks.getChunk(x, y);
+    const chunk = this.chunks.getChunk(x, y);
+    if (!chunk) {
+      this.requestChunk(x, y);
+    }
+    return chunk;
   }
 
   setChunk(x: number, y: number, chunkData: ChunkData) {
     return this.chunks.setChunk(x, y, chunkData);
+  }
+
+  getPixel(x: number, y: number): number | null {
+    const pixel = this.chunks.getPixel(x, y);
+    if (pixel === null) {
+      const [chunkX, chunkY] =
+        WorldChunks.getChunkCoordinatesFromPixelCoordinates(x, y);
+      this.requestChunk(chunkX, chunkY);
+    }
+    return pixel;
   }
 
   getVisiblePixels(
@@ -36,7 +83,7 @@ export class LocalWorldData {
     for (let y = startY; y < endY; y++) {
       const row: (number | null)[] = [];
       for (let x = startX; x < endX; x++) {
-        row[x - startX] = this.chunks.getPixel(x, y);
+        row[x - startX] = this.getPixel(x, y);
       }
       pixels[y - startY] = row;
     }

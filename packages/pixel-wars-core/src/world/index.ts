@@ -25,6 +25,8 @@ export interface PixelType {
 export type DefinedChunkData = number[][];
 export type ChunkData = DefinedChunkData | null;
 
+export type Coordinates = [number, number];
+
 export class WorldChunks {
   private chunks: { [coordinates: string]: ChunkData } = {};
 
@@ -39,17 +41,26 @@ export class WorldChunks {
     return this.chunks[chunkKey] ?? null;
   }
 
-  getPixel(x: number, y: number): number | null {
+  static getChunkCoordinatesFromPixelCoordinates(
+    x: number,
+    y: number,
+  ): Coordinates {
     const chunkX = Math.floor(x / 16);
     const chunkY = Math.floor(y / 16);
+    return [chunkX, chunkY];
+  }
+
+  getPixel(x: number, y: number): number | null {
+    const [chunkX, chunkY] =
+      WorldChunks.getChunkCoordinatesFromPixelCoordinates(x, y);
     const chunk = this.getChunk(chunkX, chunkY);
 
     if (!chunk) {
       return null;
     }
 
-    const pixelX = x % 16;
-    const pixelY = y % 16;
+    const pixelX = Math.abs(x % 16);
+    const pixelY = Math.abs(y % 16);
 
     return chunk[pixelY][pixelX] ?? null;
   }
@@ -65,7 +76,7 @@ export class World {
 
   constructor(
     pixelTypes: PixelType[],
-    generator: ChunkGenerator = new DefaultGenerator(this),
+    generator: ChunkGenerator = new DefaultGenerator(),
   ) {
     this.pixelTypes = pixelTypes;
     this.generator = generator;
@@ -102,7 +113,8 @@ export class World {
     return chunk ?? null;
   }
 
-  generateChunk(x: number, y: number): ChunkData {
-    return this.generator.generateChunk(x, y);
+  generateChunk(x: number, y: number) {
+    const chunk = this.generator.generateChunk(x, y);
+    this.chunks.setChunk(x, y, chunk);
   }
 }

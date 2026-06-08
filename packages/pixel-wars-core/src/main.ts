@@ -1,17 +1,34 @@
 import type { Gamemode } from "./gamemode";
-import type { ProtocolHandler } from "@pixel-wars/protocol";
+import type { CoreToClientProtocolHandler } from "@pixel-wars/protocol";
 
 export class PixelWars {
   private running: boolean = true;
 
   private gamemode: Gamemode;
-  private protocolHandler: ProtocolHandler;
+  private protocolHandler: CoreToClientProtocolHandler;
 
-  constructor(gamemode: Gamemode, protocolHandler: ProtocolHandler) {
+  constructor(
+    gamemode: Gamemode,
+    protocolHandler: CoreToClientProtocolHandler,
+  ) {
     this.gamemode = gamemode;
     this.protocolHandler = protocolHandler;
 
-    console.log(this.protocolHandler);
+    this.protocolHandler.onMessageReceived("world:requestChunk", (data) => {
+      const [x, y] = data;
+      const chunkData = this.gamemode.getPlayerWorld(/*player*/).getChunk(x, y);
+      this.protocolHandler.sendMessage("world:chunkData", {
+        coordinates: [x, y],
+        chunk: chunkData,
+      });
+    });
+
+    this.protocolHandler.onMessageReceived("world:requestPixelTypes", () => {
+      const pixelTypes = this.gamemode
+        .getPlayerWorld(/*player*/)
+        .getPixelTypes();
+      this.protocolHandler.sendMessage("world:pixelTypes", pixelTypes);
+    });
   }
 
   stop() {
