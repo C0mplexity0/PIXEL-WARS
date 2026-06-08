@@ -61,8 +61,9 @@ export default class PixelWarsClient {
     this.setRunning(false);
   }
 
-  stop() {
-    this.setRunning(false);
+  exit() {
+    this.pause();
+    // TODO: Clean up resources, send disconnect message
   }
 
   private requestNewTick() {

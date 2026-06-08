@@ -3,31 +3,40 @@ import PixelWarsClient from "./client";
 import {
   ClientMultiplayerProtocolHandler,
   ClientSingleplayerProtocolHandler,
+  CoreSingleplayerProtocolHandler,
   type ProtocolHandler,
 } from "@pixel-wars/protocol";
 import { changeMenuDetails } from "../util/menus";
+import { PixelWars } from "@pixel-wars/core";
+import { CreativeGamemode } from "./gamemode/creative";
 
-let game: PixelWarsClient | undefined;
+let singleplayerCore: PixelWars | undefined;
+let client: PixelWarsClient | undefined;
 
 export function getClient() {
-  return game;
+  return client;
 }
 
 export function stopGame() {
-  if (game) {
-    game.stop();
-    game = undefined;
+  if (client) {
+    client.exit();
+    client = undefined;
 
     changeMenuDetails({
       menu: "home",
     });
+  }
+
+  if (singleplayerCore) {
+    singleplayerCore.stop();
+    singleplayerCore = undefined;
   }
 }
 
 function startGame(protocol: ProtocolHandler) {
   console.log(protocol);
 
-  if (game) {
+  if (client) {
     throw new Error("Client is already running");
   }
 
@@ -36,16 +45,19 @@ function startGame(protocol: ProtocolHandler) {
     throw new Error("Canvas element not found");
   }
 
-  game = new PixelWarsClient(canvas);
-  game.start();
+  client = new PixelWarsClient(canvas);
+  client.start();
   changeMenuDetails({
     menu: "game",
   });
 }
 
 export function startSingleplayerGame() {
-  const protocol = new ClientSingleplayerProtocolHandler();
-  startGame(protocol);
+  const clientProtocol = new ClientSingleplayerProtocolHandler();
+  const gamemode = new CreativeGamemode(); // TODO: Allow player to choose gamemode
+  const coreProtocol = new CoreSingleplayerProtocolHandler();
+  singleplayerCore = new PixelWars(gamemode, coreProtocol);
+  startGame(clientProtocol);
 }
 
 export async function attemptMultiplayerConnection(ip: string) {
