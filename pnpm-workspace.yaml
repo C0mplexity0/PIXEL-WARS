@@ -1,6 +1,2 @@
 packages:
   - "packages/*"
-allowBuilds:
-  esbuild: set this to true or false
-minimumReleaseAgeExclude:
-  - '@ark-ui/vue@5.37.1'
